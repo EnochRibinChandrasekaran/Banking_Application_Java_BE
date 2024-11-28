@@ -1,0 +1,174 @@
+<html>
+<head>
+<title>BankingService.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #629755; font-style: italic;}
+.s3 { color: #629755; font-weight: bold; font-style: italic;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+BankingService.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.bankingapplication.service</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">com.bankingapplication.exception.BankingApplicationException</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.bankingapplication.model.BankAccount</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.bankingapplication.model.Transaction</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.bankingapplication.serviceimpl.BankingServiceImpl</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Comparator</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.TreeSet</span><span class="s0">;</span>
+
+<span class="s2">/**</span>
+ <span class="s2">* BankingService implements BankingServiceImpl</span>
+ <span class="s2">* all the implementation details are in this class</span>
+ <span class="s2">*/</span>
+<span class="s0">public class </span><span class="s1">BankingService </span><span class="s0">implements </span><span class="s1">BankingServiceImpl {</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* All the bank accounts are displayed in ascending order based on name</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s3">@return </span><span class="s2">TreeSet</span><span class="s1">&lt;</span><span class="s2">BankAccount</span><span class="s1">&gt;</span>
+     <span class="s2">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">TreeSet&lt;BankAccount&gt; viewAllBankAccountsAscending() {</span>
+        <span class="s0">return </span><span class="s1">(TreeSet&lt;BankAccount&gt;) BankAccount.bankAccountsList</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* All the bank accounts are displayed in descending order based on name</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s3">@return </span><span class="s2">TreeSet</span><span class="s1">&lt;</span><span class="s2">BankAccount</span><span class="s1">&gt;</span>
+     <span class="s2">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">TreeSet&lt;BankAccount&gt; viewAllBankAccountsDescending() {</span>
+        <span class="s1">TreeSet&lt;BankAccount&gt; bankAccountsList = (TreeSet&lt;BankAccount&gt;) BankAccount.bankAccountsList</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">(TreeSet&lt;BankAccount&gt;) bankAccountsList.descendingSet()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* All the bank accounts are displayed in descending order based on balance</span>
+     <span class="s2">* used custom Comparator</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s3">@return </span><span class="s2">TreeSet</span><span class="s1">&lt;</span><span class="s2">BankAccount</span><span class="s1">&gt;</span>
+     <span class="s2">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">TreeSet&lt;BankAccount&gt; viewAllBankAccountsByBalanceDescending() {</span>
+        <span class="s1">TreeSet&lt;BankAccount&gt; accountsByBalanceDescending = </span><span class="s0">new </span><span class="s1">TreeSet&lt;&gt;(</span><span class="s0">new </span><span class="s1">AccountBalanceComparator().reversed())</span><span class="s0">;</span>
+        <span class="s1">accountsByBalanceDescending.addAll(BankAccount.bankAccountsList)</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">accountsByBalanceDescending</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* All the bank accounts are displayed in ascending order based on balance</span>
+     <span class="s2">* used custom Comparator</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s3">@return </span><span class="s2">TreeSet</span><span class="s1">&lt;</span><span class="s2">BankAccount</span><span class="s1">&gt;</span>
+     <span class="s2">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">TreeSet&lt;BankAccount&gt; viewAllBankAccountsByBalanceAscending() {</span>
+        <span class="s1">TreeSet&lt;BankAccount&gt; accountsByBalanceAscending = </span><span class="s0">new </span><span class="s1">TreeSet&lt;&gt;(</span><span class="s0">new </span><span class="s1">AccountBalanceComparator())</span><span class="s0">;</span>
+        <span class="s1">accountsByBalanceAscending.addAll(BankAccount.bankAccountsList)</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">accountsByBalanceAscending</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Get individual account details</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s3">@param </span><span class="s2">accountHolderName find based on accountHolderName</span>
+     <span class="s2">* </span><span class="s3">@return </span><span class="s2">bankAccount object if found</span>
+     <span class="s2">* </span><span class="s3">@throws </span><span class="s2">BankingApplicationException thrown if account is not found</span>
+     <span class="s2">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">BankAccount viewIndividualAccount(String accountHolderName) </span><span class="s0">throws </span><span class="s1">BankingApplicationException {</span>
+        <span class="s1">TreeSet&lt;BankAccount&gt; bankAccountsList = (TreeSet&lt;BankAccount&gt;) BankAccount.bankAccountsList</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(BankAccount bankAccount :</span>
+                <span class="s1">bankAccountsList) {</span>
+            <span class="s0">if </span><span class="s1">(bankAccount.getAccountHolderName().equals(accountHolderName)) {</span>
+                <span class="s0">return </span><span class="s1">bankAccount</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">throw new </span><span class="s1">BankingApplicationException(</span><span class="s4">&quot;Account Not Found&quot;</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* add new transaction based on the bankAccount object</span>
+     <span class="s2">* the balance is set on transaction object based on money in and money out</span>
+     <span class="s2">* the balance in bankAccount object based on transaction</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s3">@param </span><span class="s2">bankAccountDetails bankAccount Object if the user exist</span>
+     <span class="s2">* </span><span class="s3">@param </span><span class="s2">transactionDetails transaction Object with all fields updated except transaction.currentBalance</span>
+     <span class="s2">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">addNewTransaction(BankAccount bankAccountDetails</span><span class="s0">, </span><span class="s1">Transaction transactionDetails) {</span>
+        <span class="s1">transactionDetails.setCurrentBalanceBasedOnTransaction(bankAccountDetails.getBalance()</span><span class="s0">, </span><span class="s1">transactionDetails.getMoneyIn()</span><span class="s0">, </span><span class="s1">transactionDetails.getMoneyOut())</span><span class="s0">;</span>
+        <span class="s1">bankAccountDetails.setBalance(transactionDetails.getCurrentBalance())</span><span class="s0">;</span>
+        <span class="s1">ArrayList&lt;Transaction&gt; transactions</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">(bankAccountDetails.getTransactions() == </span><span class="s0">null</span><span class="s1">) {</span>
+            <span class="s1">transactions = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">transactions = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;(bankAccountDetails.getTransactions())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">transactions.add(transactionDetails)</span><span class="s0">;</span>
+        <span class="s1">bankAccountDetails.setTransactions(transactions)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Remove bank account from the Set based on the BankAccount object</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s3">@param </span><span class="s2">bankAccountDetails bankAccount object if present</span>
+     <span class="s2">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">removeBankAccount(BankAccount bankAccountDetails) {</span>
+        <span class="s1">TreeSet&lt;BankAccount&gt; bankAccountsList = (TreeSet&lt;BankAccount&gt;) BankAccount.bankAccountsList</span><span class="s0">;</span>
+        <span class="s1">bankAccountsList.remove(bankAccountDetails)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Add bank account to the Set</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s3">@param </span><span class="s2">bankAccountDetails bankAccount object with all the fields filled except transaction</span>
+     <span class="s2">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">addNewBankAccount(BankAccount bankAccountDetails) {</span>
+        <span class="s1">TreeSet&lt;BankAccount&gt; bankAccountsList = (TreeSet&lt;BankAccount&gt;) BankAccount.bankAccountsList</span><span class="s0">;</span>
+        <span class="s1">bankAccountsList.add(bankAccountDetails)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Initialise dummy data</span>
+     <span class="s2">*/</span>
+    <span class="s0">public void </span><span class="s1">initialiseBankAccounts() {</span>
+        <span class="s1">BankAccount.setInstances()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s2">/**</span>
+ <span class="s2">* User defined comparator</span>
+ <span class="s2">* to compare Bank Balance</span>
+ <span class="s2">*/</span>
+<span class="s0">class </span><span class="s1">AccountBalanceComparator </span><span class="s0">implements </span><span class="s1">Comparator&lt;BankAccount&gt; {</span>
+    <span class="s2">/**</span>
+     <span class="s2">* Compare BankAccount.balance</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s3">@param </span><span class="s2">account1 the first object to be compared.</span>
+     <span class="s2">* </span><span class="s3">@param </span><span class="s2">account2 the second object to be compared.</span>
+     <span class="s2">* </span><span class="s3">@return </span><span class="s2">double (1,0,-1)</span>
+     <span class="s2">*/</span>
+    <span class="s0">public int </span><span class="s1">compare(BankAccount account1</span><span class="s0">, </span><span class="s1">BankAccount account2) {</span>
+        <span class="s0">return </span><span class="s1">Double.compare(account1.getBalance()</span><span class="s0">, </span><span class="s1">account2.getBalance())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+</pre>
+</body>
+</html>

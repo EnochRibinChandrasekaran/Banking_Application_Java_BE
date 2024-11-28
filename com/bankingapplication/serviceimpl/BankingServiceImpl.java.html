@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>BankingServiceImpl.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #629755; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+BankingServiceImpl.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.bankingapplication.serviceimpl</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">com.bankingapplication.exception.BankingApplicationException</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.bankingapplication.model.BankAccount</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.bankingapplication.model.Transaction</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.TreeSet</span><span class="s0">;</span>
+
+<span class="s2">/**</span>
+ <span class="s2">* BankingServiceImpl interface used in BankingService</span>
+ <span class="s2">* Created for decoupling the implementation so that</span>
+ <span class="s2">* it can be altered later without the whole application getting broken</span>
+ <span class="s2">*/</span>
+<span class="s0">public interface </span><span class="s1">BankingServiceImpl {</span>
+    <span class="s1">TreeSet&lt;BankAccount&gt; viewAllBankAccountsAscending()</span><span class="s0">;</span>
+
+    <span class="s1">TreeSet&lt;BankAccount&gt; viewAllBankAccountsDescending()</span><span class="s0">;</span>
+
+    <span class="s1">TreeSet&lt;BankAccount&gt; viewAllBankAccountsByBalanceAscending()</span><span class="s0">;</span>
+
+    <span class="s1">TreeSet&lt;BankAccount&gt; viewAllBankAccountsByBalanceDescending()</span><span class="s0">;</span>
+
+    <span class="s1">BankAccount viewIndividualAccount(String accountHolderName) </span><span class="s0">throws </span><span class="s1">BankingApplicationException</span><span class="s0">;</span>
+
+    <span class="s0">void </span><span class="s1">addNewTransaction(BankAccount bankAccountDetails</span><span class="s0">, </span><span class="s1">Transaction transactionDetails)</span><span class="s0">;</span>
+
+    <span class="s0">void </span><span class="s1">removeBankAccount(BankAccount bankAccountDetails)</span><span class="s0">;</span>
+
+    <span class="s0">void </span><span class="s1">addNewBankAccount(BankAccount bankAccountDetails)</span><span class="s0">;</span>
+
+
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

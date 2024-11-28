@@ -1,0 +1,270 @@
+<html>
+<head>
+<title>BankAccount.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #629755; font-style: italic;}
+.s3 { color: #77b767; font-style: italic;}
+.s4 { color: #629755; font-weight: bold; font-style: italic;}
+.s5 { color: #6a8759;}
+.s6 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+BankAccount.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.bankingapplication.model</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.time.LocalDate</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.time.LocalTime</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.time.format.DateTimeFormatter</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.SortedSet</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.TreeSet</span><span class="s0">;</span>
+
+<span class="s2">/**</span>
+ <span class="s2">* BankAccount model class</span>
+ <span class="s2">* String accountHolderName         Account Holder Name</span>
+ <span class="s2">* double balance                   Bank Balance</span>
+ <span class="s2">* List</span><span class="s3">&lt;transaction&gt; </span><span class="s2">transactions   Account Transactions</span>
+ <span class="s2">*/</span>
+<span class="s0">public class </span><span class="s1">BankAccount </span><span class="s0">implements </span><span class="s1">Comparable&lt;BankAccount&gt; {</span>
+    <span class="s0">public static final </span><span class="s1">SortedSet&lt;BankAccount&gt; bankAccountsList = </span><span class="s0">new </span><span class="s1">TreeSet&lt;&gt;()</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String accountHolderName</span><span class="s0">;</span>
+    <span class="s0">private double </span><span class="s1">balance</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">List&lt;Transaction&gt; transactions</span><span class="s0">;</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Constructors</span>
+     <span class="s2">*/</span>
+    <span class="s0">public </span><span class="s1">BankAccount() {</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">BankAccount(String accountHolderName</span><span class="s0">, double </span><span class="s1">balance</span><span class="s0">, </span><span class="s1">List&lt;Transaction&gt; transactions) {</span>
+        <span class="s0">this</span><span class="s1">.accountHolderName = accountHolderName</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.balance = balance</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.transactions = transactions</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">BankAccount(String accountHolderName</span><span class="s0">, double </span><span class="s1">balance) {</span>
+        <span class="s0">this</span><span class="s1">.accountHolderName = accountHolderName</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.balance = balance</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Getters and Setters for the fields</span>
+     <span class="s2">*/</span>
+    <span class="s0">public </span><span class="s1">String getAccountHolderName() {</span>
+        <span class="s0">return </span><span class="s1">accountHolderName</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setAccountHolderName(String accountHolderName) {</span>
+        <span class="s0">this</span><span class="s1">.accountHolderName = accountHolderName</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public double </span><span class="s1">getBalance() {</span>
+        <span class="s0">return </span><span class="s1">balance</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setBalance(</span><span class="s0">double </span><span class="s1">balance) {</span>
+        <span class="s0">this</span><span class="s1">.balance = balance</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">List&lt;Transaction&gt; getTransactions() {</span>
+        <span class="s0">return </span><span class="s1">transactions</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setTransactions(List&lt;Transaction&gt; transactions) {</span>
+        <span class="s0">this</span><span class="s1">.transactions = transactions</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s2">/**</span>
+     <span class="s2">* Mock data</span>
+     <span class="s2">* SortedSet interface is used so that its references can be changed in future</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s4">@return </span><span class="s2">SortedSet</span><span class="s1">&lt;</span><span class="s2">BankAccount</span><span class="s1">&gt;</span>
+     <span class="s2">*/</span>
+    <span class="s0">public static </span><span class="s1">SortedSet&lt;BankAccount&gt; setInstances() {</span>
+        <span class="s1">bankAccountsList.add(account1())</span><span class="s0">;</span>
+        <span class="s1">bankAccountsList.add(account2())</span><span class="s0">;</span>
+        <span class="s1">bankAccountsList.add(account3())</span><span class="s0">;</span>
+        <span class="s1">bankAccountsList.add(account4())</span><span class="s0">;</span>
+        <span class="s1">bankAccountsList.add(account5())</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">bankAccountsList</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Mock data  - Hard coded</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s4">@return </span><span class="s2">BankAccount</span>
+     <span class="s2">*/</span>
+    <span class="s0">private static </span><span class="s1">BankAccount account1() {</span>
+        <span class="s1">BankAccount account = </span><span class="s0">new </span><span class="s1">BankAccount(</span><span class="s5">&quot;Enoch&quot;</span><span class="s0">, </span><span class="s6">1000000.00</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Transaction transaction1 = </span><span class="s0">new </span><span class="s1">Transaction(LocalDate.parse(</span><span class="s5">&quot;11/11/2022&quot;</span><span class="s0">, </span><span class="s1">DateTimeFormatter.ofPattern(</span><span class="s5">&quot;dd/MM/yyyy&quot;</span><span class="s1">))</span><span class="s0">, </span><span class="s1">LocalTime.parse(</span><span class="s5">&quot;10:11:20&quot;</span><span class="s1">)</span><span class="s0">, </span><span class="s5">&quot;Mc Donald's&quot;</span><span class="s0">, </span><span class="s6">0</span><span class="s0">, </span><span class="s6">12</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">transaction1.setCurrentBalanceBasedOnTransaction(account.getBalance()</span><span class="s0">, </span><span class="s1">transaction1.getMoneyIn()</span><span class="s0">, </span><span class="s1">transaction1.getMoneyOut())</span><span class="s0">;</span>
+        <span class="s1">account.setBalance(transaction1.getCurrentBalance())</span><span class="s0">;</span>
+        <span class="s1">ArrayList&lt;Transaction&gt; transactionList = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s1">transactionList.add(transaction1)</span><span class="s0">;</span>
+        <span class="s1">account.setTransactions(transactionList)</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">account</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Mock data  - Hard coded</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s4">@return </span><span class="s2">BankAccount</span>
+     <span class="s2">*/</span>
+    <span class="s0">private static </span><span class="s1">BankAccount account2() {</span>
+        <span class="s1">BankAccount account = </span><span class="s0">new </span><span class="s1">BankAccount(</span><span class="s5">&quot;Roy&quot;</span><span class="s0">, </span><span class="s6">1000000.00</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Transaction transaction1 = </span><span class="s0">new </span><span class="s1">Transaction(LocalDate.parse(</span><span class="s5">&quot;12/01/2002&quot;</span><span class="s0">, </span><span class="s1">DateTimeFormatter.ofPattern(</span><span class="s5">&quot;dd/MM/yyyy&quot;</span><span class="s1">))</span><span class="s0">, </span><span class="s1">LocalTime.parse(</span><span class="s5">&quot;19:11:20&quot;</span><span class="s1">)</span><span class="s0">, </span><span class="s5">&quot;Marriott&quot;</span><span class="s0">, </span><span class="s6">0</span><span class="s0">, </span><span class="s6">120</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Transaction transaction2 = </span><span class="s0">new </span><span class="s1">Transaction(LocalDate.parse(</span><span class="s5">&quot;11/11/2012&quot;</span><span class="s0">, </span><span class="s1">DateTimeFormatter.ofPattern(</span><span class="s5">&quot;dd/MM/yyyy&quot;</span><span class="s1">))</span><span class="s0">, </span><span class="s1">LocalTime.parse(</span><span class="s5">&quot;10:11:20&quot;</span><span class="s1">)</span><span class="s0">, </span><span class="s5">&quot;Mc Donald's&quot;</span><span class="s0">, </span><span class="s6">0</span><span class="s0">, </span><span class="s6">11</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">transaction1.setCurrentBalanceBasedOnTransaction(account.getBalance()</span><span class="s0">, </span><span class="s1">transaction1.getMoneyIn()</span><span class="s0">, </span><span class="s1">transaction1.getMoneyOut())</span><span class="s0">;</span>
+        <span class="s1">account.setBalance(transaction1.getCurrentBalance())</span><span class="s0">;</span>
+        <span class="s1">transaction2.setCurrentBalanceBasedOnTransaction(account.getBalance()</span><span class="s0">, </span><span class="s1">transaction2.getMoneyIn()</span><span class="s0">, </span><span class="s1">transaction2.getMoneyOut())</span><span class="s0">;</span>
+        <span class="s1">account.setBalance(transaction2.getCurrentBalance())</span><span class="s0">;</span>
+        <span class="s1">ArrayList&lt;Transaction&gt; transactionList = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s1">transactionList.add(transaction1)</span><span class="s0">;</span>
+        <span class="s1">transactionList.add(transaction2)</span><span class="s0">;</span>
+        <span class="s1">account.setTransactions(transactionList)</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">account</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Mock data  - Hard coded</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s4">@return </span><span class="s2">BankAccount</span>
+     <span class="s2">*/</span>
+    <span class="s0">private static </span><span class="s1">BankAccount account3() {</span>
+        <span class="s1">BankAccount account = </span><span class="s0">new </span><span class="s1">BankAccount(</span><span class="s5">&quot;Ribin&quot;</span><span class="s0">, </span><span class="s6">200000.00</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Transaction transaction1 = </span><span class="s0">new </span><span class="s1">Transaction(LocalDate.parse(</span><span class="s5">&quot;12/01/2002&quot;</span><span class="s0">, </span><span class="s1">DateTimeFormatter.ofPattern(</span><span class="s5">&quot;dd/MM/yyyy&quot;</span><span class="s1">))</span><span class="s0">, </span><span class="s1">LocalTime.parse(</span><span class="s5">&quot;19:11:20&quot;</span><span class="s1">)</span><span class="s0">, </span><span class="s5">&quot;Marriott&quot;</span><span class="s0">, </span><span class="s6">0</span><span class="s0">, </span><span class="s6">120</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Transaction transaction2 = </span><span class="s0">new </span><span class="s1">Transaction(LocalDate.parse(</span><span class="s5">&quot;11/11/2012&quot;</span><span class="s0">, </span><span class="s1">DateTimeFormatter.ofPattern(</span><span class="s5">&quot;dd/MM/yyyy&quot;</span><span class="s1">))</span><span class="s0">, </span><span class="s1">LocalTime.parse(</span><span class="s5">&quot;10:11:20&quot;</span><span class="s1">)</span><span class="s0">, </span><span class="s5">&quot;Mc Donald's&quot;</span><span class="s0">, </span><span class="s6">0</span><span class="s0">, </span><span class="s6">11</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Transaction transaction3 = </span><span class="s0">new </span><span class="s1">Transaction(LocalDate.parse(</span><span class="s5">&quot;01/11/2022&quot;</span><span class="s0">, </span><span class="s1">DateTimeFormatter.ofPattern(</span><span class="s5">&quot;dd/MM/yyyy&quot;</span><span class="s1">))</span><span class="s0">, </span><span class="s1">LocalTime.parse(</span><span class="s5">&quot;11:01:20&quot;</span><span class="s1">)</span><span class="s0">, </span><span class="s5">&quot;Enoch&quot;</span><span class="s0">, </span><span class="s6">20</span><span class="s0">, </span><span class="s6">0</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">transaction1.setCurrentBalanceBasedOnTransaction(account.getBalance()</span><span class="s0">, </span><span class="s1">transaction1.getMoneyIn()</span><span class="s0">, </span><span class="s1">transaction1.getMoneyOut())</span><span class="s0">;</span>
+        <span class="s1">account.setBalance(transaction1.getCurrentBalance())</span><span class="s0">;</span>
+        <span class="s1">transaction2.setCurrentBalanceBasedOnTransaction(account.getBalance()</span><span class="s0">, </span><span class="s1">transaction2.getMoneyIn()</span><span class="s0">, </span><span class="s1">transaction2.getMoneyOut())</span><span class="s0">;</span>
+        <span class="s1">account.setBalance(transaction2.getCurrentBalance())</span><span class="s0">;</span>
+        <span class="s1">transaction3.setCurrentBalanceBasedOnTransaction(account.getBalance()</span><span class="s0">, </span><span class="s1">transaction3.getMoneyIn()</span><span class="s0">, </span><span class="s1">transaction3.getMoneyOut())</span><span class="s0">;</span>
+        <span class="s1">account.setBalance(transaction3.getCurrentBalance())</span><span class="s0">;</span>
+        <span class="s1">ArrayList&lt;Transaction&gt; transactionList = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s1">transactionList.add(transaction1)</span><span class="s0">;</span>
+        <span class="s1">transactionList.add(transaction2)</span><span class="s0">;</span>
+        <span class="s1">transactionList.add(transaction3)</span><span class="s0">;</span>
+        <span class="s1">account.setTransactions(transactionList)</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">account</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Mock data  - Hard coded</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s4">@return </span><span class="s2">BankAccount</span>
+     <span class="s2">*/</span>
+    <span class="s0">private static </span><span class="s1">BankAccount account4() {</span>
+        <span class="s1">BankAccount account = </span><span class="s0">new </span><span class="s1">BankAccount(</span><span class="s5">&quot;Ram&quot;</span><span class="s0">, </span><span class="s6">90000.00</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Transaction transaction1 = </span><span class="s0">new </span><span class="s1">Transaction(LocalDate.parse(</span><span class="s5">&quot;12/01/2002&quot;</span><span class="s0">, </span><span class="s1">DateTimeFormatter.ofPattern(</span><span class="s5">&quot;dd/MM/yyyy&quot;</span><span class="s1">))</span><span class="s0">, </span><span class="s1">LocalTime.parse(</span><span class="s5">&quot;19:11:20&quot;</span><span class="s1">)</span><span class="s0">, </span><span class="s5">&quot;Marriott&quot;</span><span class="s0">, </span><span class="s6">0</span><span class="s0">, </span><span class="s6">120</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Transaction transaction2 = </span><span class="s0">new </span><span class="s1">Transaction(LocalDate.parse(</span><span class="s5">&quot;11/11/2012&quot;</span><span class="s0">, </span><span class="s1">DateTimeFormatter.ofPattern(</span><span class="s5">&quot;dd/MM/yyyy&quot;</span><span class="s1">))</span><span class="s0">, </span><span class="s1">LocalTime.parse(</span><span class="s5">&quot;10:11:20&quot;</span><span class="s1">)</span><span class="s0">, </span><span class="s5">&quot;Mc Donald's&quot;</span><span class="s0">, </span><span class="s6">0</span><span class="s0">, </span><span class="s6">11</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Transaction transaction3 = </span><span class="s0">new </span><span class="s1">Transaction(LocalDate.parse(</span><span class="s5">&quot;01/11/2022&quot;</span><span class="s0">, </span><span class="s1">DateTimeFormatter.ofPattern(</span><span class="s5">&quot;dd/MM/yyyy&quot;</span><span class="s1">))</span><span class="s0">, </span><span class="s1">LocalTime.parse(</span><span class="s5">&quot;11:01:20&quot;</span><span class="s1">)</span><span class="s0">, </span><span class="s5">&quot;Enoch&quot;</span><span class="s0">, </span><span class="s6">20</span><span class="s0">, </span><span class="s6">0</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">transaction1.setCurrentBalanceBasedOnTransaction(account.getBalance()</span><span class="s0">, </span><span class="s1">transaction1.getMoneyIn()</span><span class="s0">, </span><span class="s1">transaction1.getMoneyOut())</span><span class="s0">;</span>
+        <span class="s1">account.setBalance(transaction1.getCurrentBalance())</span><span class="s0">;</span>
+        <span class="s1">transaction2.setCurrentBalanceBasedOnTransaction(account.getBalance()</span><span class="s0">, </span><span class="s1">transaction2.getMoneyIn()</span><span class="s0">, </span><span class="s1">transaction2.getMoneyOut())</span><span class="s0">;</span>
+        <span class="s1">account.setBalance(transaction2.getCurrentBalance())</span><span class="s0">;</span>
+        <span class="s1">transaction3.setCurrentBalanceBasedOnTransaction(account.getBalance()</span><span class="s0">, </span><span class="s1">transaction3.getMoneyIn()</span><span class="s0">, </span><span class="s1">transaction3.getMoneyOut())</span><span class="s0">;</span>
+        <span class="s1">account.setBalance(transaction3.getCurrentBalance())</span><span class="s0">;</span>
+        <span class="s1">ArrayList&lt;Transaction&gt; transactionList = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s1">transactionList.add(transaction1)</span><span class="s0">;</span>
+        <span class="s1">transactionList.add(transaction2)</span><span class="s0">;</span>
+        <span class="s1">transactionList.add(transaction3)</span><span class="s0">;</span>
+        <span class="s1">account.setTransactions(transactionList)</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">account</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Mock data  - Hard coded</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s4">@return </span><span class="s2">BankAccount</span>
+     <span class="s2">*/</span>
+    <span class="s0">private static </span><span class="s1">BankAccount account5() {</span>
+        <span class="s1">BankAccount account = </span><span class="s0">new </span><span class="s1">BankAccount(</span><span class="s5">&quot;Raj&quot;</span><span class="s0">, </span><span class="s6">2000000.00</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Transaction transaction1 = </span><span class="s0">new </span><span class="s1">Transaction(LocalDate.parse(</span><span class="s5">&quot;12/01/2002&quot;</span><span class="s0">, </span><span class="s1">DateTimeFormatter.ofPattern(</span><span class="s5">&quot;dd/MM/yyyy&quot;</span><span class="s1">))</span><span class="s0">, </span><span class="s1">LocalTime.parse(</span><span class="s5">&quot;19:11:20&quot;</span><span class="s1">)</span><span class="s0">, </span><span class="s5">&quot;Marriott&quot;</span><span class="s0">, </span><span class="s6">0</span><span class="s0">, </span><span class="s6">120</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Transaction transaction2 = </span><span class="s0">new </span><span class="s1">Transaction(LocalDate.parse(</span><span class="s5">&quot;11/11/2012&quot;</span><span class="s0">, </span><span class="s1">DateTimeFormatter.ofPattern(</span><span class="s5">&quot;dd/MM/yyyy&quot;</span><span class="s1">))</span><span class="s0">, </span><span class="s1">LocalTime.parse(</span><span class="s5">&quot;10:11:20&quot;</span><span class="s1">)</span><span class="s0">, </span><span class="s5">&quot;Mc Donald's&quot;</span><span class="s0">, </span><span class="s6">0</span><span class="s0">, </span><span class="s6">11</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Transaction transaction3 = </span><span class="s0">new </span><span class="s1">Transaction(LocalDate.parse(</span><span class="s5">&quot;01/11/2022&quot;</span><span class="s0">, </span><span class="s1">DateTimeFormatter.ofPattern(</span><span class="s5">&quot;dd/MM/yyyy&quot;</span><span class="s1">))</span><span class="s0">, </span><span class="s1">LocalTime.parse(</span><span class="s5">&quot;11:01:20&quot;</span><span class="s1">)</span><span class="s0">, </span><span class="s5">&quot;Enoch&quot;</span><span class="s0">, </span><span class="s6">20</span><span class="s0">, </span><span class="s6">0</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">transaction1.setCurrentBalanceBasedOnTransaction(account.getBalance()</span><span class="s0">, </span><span class="s1">transaction1.getMoneyIn()</span><span class="s0">, </span><span class="s1">transaction1.getMoneyOut())</span><span class="s0">;</span>
+        <span class="s1">account.setBalance(transaction1.getCurrentBalance())</span><span class="s0">;</span>
+        <span class="s1">transaction2.setCurrentBalanceBasedOnTransaction(account.getBalance()</span><span class="s0">, </span><span class="s1">transaction2.getMoneyIn()</span><span class="s0">, </span><span class="s1">transaction2.getMoneyOut())</span><span class="s0">;</span>
+        <span class="s1">account.setBalance(transaction2.getCurrentBalance())</span><span class="s0">;</span>
+        <span class="s1">transaction3.setCurrentBalanceBasedOnTransaction(account.getBalance()</span><span class="s0">, </span><span class="s1">transaction3.getMoneyIn()</span><span class="s0">, </span><span class="s1">transaction3.getMoneyOut())</span><span class="s0">;</span>
+        <span class="s1">account.setBalance(transaction3.getCurrentBalance())</span><span class="s0">;</span>
+        <span class="s1">ArrayList&lt;Transaction&gt; transactionList = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s1">transactionList.add(transaction1)</span><span class="s0">;</span>
+        <span class="s1">transactionList.add(transaction2)</span><span class="s0">;</span>
+        <span class="s1">transactionList.add(transaction3)</span><span class="s0">;</span>
+        <span class="s1">account.setTransactions(transactionList)</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">account</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Override toString to change the string based on transaction field</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s4">@return </span><span class="s2">String BankAccount Object</span>
+     <span class="s2">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">String toString() {</span>
+        <span class="s1">String withTransaction = </span><span class="s5">&quot;Account Holder Name : &quot; </span><span class="s1">+ accountHolderName +</span>
+                <span class="s5">&quot; | Balance : £&quot; </span><span class="s1">+ balance + </span><span class="s5">&quot;</span><span class="s0">\n</span><span class="s5">&quot; </span><span class="s1">+</span>
+                <span class="s5">&quot; | Transactions : &quot; </span><span class="s1">+ transactions + </span><span class="s5">&quot;|&quot; </span><span class="s1">+ </span><span class="s5">&quot;</span><span class="s0">\n</span><span class="s5">&quot;</span><span class="s0">;</span>
+        <span class="s1">String withoutTransaction = </span><span class="s5">&quot;Account Holder Name : &quot; </span><span class="s1">+ accountHolderName +</span>
+                <span class="s5">&quot; | Balance : £&quot; </span><span class="s1">+ balance + </span><span class="s5">&quot;</span><span class="s0">\n</span><span class="s5">&quot; </span><span class="s1">+</span>
+                <span class="s5">&quot; | Transactions : No Transactions made&quot; </span><span class="s1">+ </span><span class="s5">&quot;|&quot; </span><span class="s1">+ </span><span class="s5">&quot;</span><span class="s0">\n</span><span class="s5">&quot;</span><span class="s0">;</span>
+
+        <span class="s0">if </span><span class="s1">(transactions == </span><span class="s0">null</span><span class="s1">) {</span>
+            <span class="s0">return </span><span class="s1">withoutTransaction + </span><span class="s5">&quot;-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------&quot; </span><span class="s1">+ </span><span class="s5">&quot;</span><span class="s0">\n</span><span class="s5">&quot;</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return</span>
+                <span class="s1">withTransaction +</span>
+                        <span class="s5">&quot;-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------&quot; </span><span class="s1">+ </span><span class="s5">&quot;</span><span class="s0">\n</span><span class="s5">&quot;</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s2">/**</span>
+     <span class="s2">* override equals based accountHolderName is same or not</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s4">@param </span><span class="s2">o BankAccount object</span>
+     <span class="s2">* </span><span class="s4">@return </span><span class="s2">true/false comparing accountHolderName</span>
+     <span class="s2">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public boolean </span><span class="s1">equals(Object o) {</span>
+        <span class="s0">if </span><span class="s1">(</span><span class="s0">this </span><span class="s1">== o) </span><span class="s0">return true;</span>
+        <span class="s0">if </span><span class="s1">(o == </span><span class="s0">null </span><span class="s1">|| getClass() != o.getClass()) </span><span class="s0">return false;</span>
+        <span class="s1">BankAccount that = (BankAccount) o</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">accountHolderName.equals(that.accountHolderName)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* override hashCode based on the accountHolderName</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s4">@return </span><span class="s2">int accountHolderName hashcode</span>
+     <span class="s2">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public int </span><span class="s1">hashCode() {</span>
+        <span class="s0">return </span><span class="s1">accountHolderName.hashCode()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* override compareTo based on accountHolderName</span>
+     <span class="s2">*</span>
+     <span class="s2">* </span><span class="s4">@param </span><span class="s2">accountObject the object to be compared.</span>
+     <span class="s2">* </span><span class="s4">@return </span><span class="s2">int comparing accountHolderName(-1,1,0)</span>
+     <span class="s2">*/</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public int </span><span class="s1">compareTo(BankAccount accountObject) {</span>
+        <span class="s0">return </span><span class="s1">accountHolderName.compareTo(accountObject.getAccountHolderName())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>
